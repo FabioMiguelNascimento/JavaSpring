@@ -4,9 +4,13 @@ import com.example.ecom.dto.requests.UserCreateDTO;
 import com.example.ecom.dto.responses.UserResponseDTO;
 import com.example.ecom.model.User;
 import com.example.ecom.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
@@ -19,7 +23,8 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserResponseDTO> Create(@RequestBody UserCreateDTO userData) {
+    public ResponseEntity<UserResponseDTO> Create(@Valid @RequestBody UserCreateDTO userData) {
+
         User userCreated = userService.create(userData.getName(), userData.getEmail(), userData.getPassword());
 
         UserResponseDTO userResponseDTO = new UserResponseDTO(userCreated);

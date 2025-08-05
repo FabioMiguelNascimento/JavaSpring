@@ -3,6 +3,7 @@ package com.example.ecom.controller;
 import com.example.ecom.dto.requests.LoginRequestDTO;
 import com.example.ecom.dto.responses.LoginResponseDTO;
 import com.example.ecom.service.AuthService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginData) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginData) {
             LoginResponseDTO authenticatedUser = authService.login(loginData.getEmail(), loginData.getPassword());
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(authenticatedUser);
     }
