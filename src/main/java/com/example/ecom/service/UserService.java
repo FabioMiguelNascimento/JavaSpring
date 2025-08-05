@@ -2,6 +2,8 @@ package com.example.ecom.service;
 
 import com.example.ecom.model.User;
 import com.example.ecom.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,14 @@ public class UserService {
                 .build();
 
         return this.userRepository.save(newUser);
+    }
+
+    public User getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String userId = authentication.getName();
+
+        return userRepository.getUserById(userId);
     }
 
     public User findByEmail(String email) {
