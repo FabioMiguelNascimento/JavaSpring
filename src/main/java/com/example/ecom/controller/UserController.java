@@ -26,13 +26,4 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
-
-    @GetMapping("/email")
-    public ResponseEntity<UserResponseDTO> getUserByEmail(@RequestParam String email) {
-        User userCreated =  userService.findByEmail(email);
-
-        UserResponseDTO userResponseDTO = new UserResponseDTO(userCreated);
-
-        return ResponseEntity.status(HttpStatus.OK).body(userResponseDTO);
-    }
 }
