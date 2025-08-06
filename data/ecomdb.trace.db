@@ -1,6 +1,0 @@
-2025-08-05 14:19:47.084168-03:00 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]USERS"; expected "UPDATE"; SQL statement:
-USERS [42001-232]
-2025-08-05 14:19:47.266633-03:00 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]USERS"; expected "UPDATE"; SQL statement:
-USERS [42001-232]

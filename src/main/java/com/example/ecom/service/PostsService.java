@@ -20,9 +20,14 @@ public class PostsService {
         return postsRepository.findAll();
     }
 
-    public Post createPost(String userName, String tile, String description, String content) {
+    public Post getPostById(String id) {
+        return postsRepository.getPostById(id);
+    }
+
+    public Post createPost(String userName, String userId, String tile, String description, String content) {
         Post newPost = Post.builder()
                 .userName(userName)
+                .userId(userId)
                 .title(tile)
                 .description(description)
                 .content(content)
@@ -31,5 +36,9 @@ public class PostsService {
                 .build();
 
         return postsRepository.save(newPost);
+    }
+
+    public void deleteById(String id) {
+        postsRepository.deleteById(id);
     }
 }

@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 
 public class PostResponseDTO {
 
+    private String Id;
     private String userName;
+    private String userId;
     private String title;
     private String description;
     private String content;
@@ -14,12 +16,30 @@ public class PostResponseDTO {
     private LocalDateTime updatedAt;
 
     public PostResponseDTO(Post post) {
+        this.Id = post.getId();
         this.userName = post.getUserName();
+        this.userId= post.getUserId();
         this.title = post.getTitle();
         this.description = post.getDescription();
         this.content = post.getContent();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
+    }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {

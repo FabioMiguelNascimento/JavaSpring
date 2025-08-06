@@ -9,6 +9,7 @@ import com.example.ecom.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,12 +38,24 @@ public class PostsController {
 
         User user = userService.getAuthenticatedUser();
         String userName = user.getName();
+        String userId = user.getId();
 
-        Post newPost = postsService.createPost(userName, postData.getTitle(), postData.getDescription(), postData.getContent());
+        Post newPost = postsService.createPost(userName, userId, postData.getTitle(), postData.getDescription(), postData.getContent());
 
         PostResponseDTO postResponseDTO = new PostResponseDTO(newPost);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(postResponseDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable String id) {
+        User user = userService.getAuthenticatedUser();
+        Post post = postsService.getPostById(id);
+        if (!user.getId().equals(post.getUserId())) {
+            throw new AccessDeniedException("Acesso negado. Você não é o dono deste post.");
+        }
+        postsService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
